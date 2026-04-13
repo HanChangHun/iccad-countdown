@@ -21,8 +21,9 @@
 
     .container {
       text-align: center;
-      padding: 1.5rem;
-      max-width: 600px;
+      padding: clamp(1.5rem, 3vw, 3rem);
+      max-width: min(60vw, 700px);
+      max-height: 50vh;
       width: 100%;
     }
 
@@ -31,18 +32,18 @@
       background: rgba(255, 255, 255, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 20px;
-      padding: 5px 14px;
-      font-size: 0.75rem;
+      padding: clamp(5px, 0.8vh, 10px) clamp(14px, 2vw, 24px);
+      font-size: clamp(0.7rem, 1vw, 1rem);
       letter-spacing: 1px;
       text-transform: uppercase;
-      margin-bottom: 1rem;
+      margin-bottom: clamp(0.8rem, 2vh, 1.8rem);
       backdrop-filter: blur(10px);
     }
 
     h1 {
-      font-size: 2.2rem;
+      font-size: clamp(2rem, 4vw, 4rem);
       font-weight: 700;
-      margin-bottom: 0.3rem;
+      margin-bottom: clamp(0.2rem, 0.5vh, 0.5rem);
       background: linear-gradient(to right, #f7797d, #FBD786, #C6FFDD);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -50,19 +51,19 @@
     }
 
     .subtitle {
-      font-size: 0.95rem;
+      font-size: clamp(0.85rem, 1.5vw, 1.3rem);
       color: rgba(255, 255, 255, 0.6);
-      margin-bottom: 1.5rem;
+      margin-bottom: clamp(1rem, 3vh, 2.5rem);
     }
 
     .deadline-info {
-      font-size: 0.85rem;
+      font-size: clamp(0.8rem, 1.2vw, 1.1rem);
       color: rgba(255, 255, 255, 0.5);
-      margin-bottom: 1.5rem;
+      margin-bottom: clamp(1rem, 2.5vh, 2rem);
     }
 
     .now-info {
-      font-size: 0.8rem;
+      font-size: clamp(0.75rem, 1.1vw, 1rem);
       color: rgba(255, 255, 255, 0.4);
       margin-bottom: 0.3rem;
     }
@@ -70,16 +71,16 @@
     .countdown {
       display: flex;
       justify-content: center;
-      gap: 0.8rem;
-      margin-bottom: 1.5rem;
+      gap: clamp(0.6rem, 1.5vw, 1.5rem);
+      margin-bottom: clamp(1rem, 2vh, 2rem);
     }
 
     .unit {
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      padding: 1rem 0;
-      width: 72px;
+      border-radius: clamp(10px, 1.2vw, 18px);
+      padding: clamp(0.8rem, 2vh, 2rem) 0;
+      width: clamp(64px, 10vw, 130px);
       backdrop-filter: blur(20px);
       transition: transform 0.3s, box-shadow 0.3s;
     }
@@ -90,7 +91,7 @@
     }
 
     .unit .number {
-      font-size: 2rem;
+      font-size: clamp(1.6rem, 3.5vw, 3.5rem);
       font-weight: 700;
       line-height: 1;
       font-variant-numeric: tabular-nums;
@@ -101,11 +102,11 @@
     }
 
     .unit .label {
-      font-size: 0.6rem;
+      font-size: clamp(0.55rem, 0.9vw, 0.85rem);
       text-transform: uppercase;
       letter-spacing: 1.5px;
       color: rgba(255, 255, 255, 0.5);
-      margin-top: 0.4rem;
+      margin-top: clamp(0.3rem, 0.6vh, 0.6rem);
     }
 
     .expired {
@@ -142,11 +143,8 @@
       100% { transform: translateY(-10vh) scale(1); opacity: 0; }
     }
 
-    @media (max-width: 400px) {
-      h1 { font-size: 1.8rem; }
-      .unit { width: 64px; padding: 0.8rem 0; }
-      .unit .number { font-size: 1.6rem; }
-      .countdown { gap: 0.5rem; }
+    @media (max-width: 600px) {
+      .container { max-width: 100%; }
     }
   </style>
 </head>
