@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ICCAD 2026 Submission Deadline</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      color: #fff;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+      overflow: hidden;
+    }
+
+    .container {
+      text-align: center;
+      padding: 2rem;
+      max-width: 800px;
+      width: 100%;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 6px 18px;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      backdrop-filter: blur(10px);
+    }
+
+    h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(to right, #f7797d, #FBD786, #C6FFDD);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 3rem;
+    }
+
+    .deadline-info {
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 2rem;
+    }
+
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+
+    .unit {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 1.5rem 1.2rem;
+      min-width: 110px;
+      backdrop-filter: blur(20px);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .unit:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px rgba(247, 121, 125, 0.2);
+    }
+
+    .unit .number {
+      font-size: 3rem;
+      font-weight: 700;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+      background: linear-gradient(to bottom, #fff, rgba(255, 255, 255, 0.7));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .unit .label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: rgba(255, 255, 255, 0.5);
+      margin-top: 0.5rem;
+    }
+
+    .progress-wrapper {
+      width: 100%;
+      max-width: 500px;
+      margin: 0 auto 1.5rem;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(to right, #f7797d, #FBD786, #C6FFDD);
+      border-radius: 3px;
+      transition: width 1s linear;
+    }
+
+    .progress-text {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.4);
+      margin-top: 0.5rem;
+    }
+
+    .expired {
+      font-size: 2rem;
+      color: #f7797d;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .particles {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      animation: float linear infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh) scale(0); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2rem; }
+      .unit { min-width: 80px; padding: 1rem 0.8rem; }
+      .unit .number { font-size: 2rem; }
+      .countdown { gap: 0.7rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+
+  <div class="container">
+    <div class="badge">Conference Deadline</div>
+    <h1>ICCAD 2026</h1>
+    <p class="subtitle">Paper Submission Deadline</p>
+    <p class="deadline-info">2026. 4. 15. (Wed) 20:59 KST</p>
+
+    <div class="countdown" id="countdown">
+      <div class="unit">
+        <div class="number" id="days">--</div>
+        <div class="label">Days</div>
+      </div>
+      <div class="unit">
+        <div class="number" id="hours">--</div>
+        <div class="label">Hours</div>
+      </div>
+      <div class="unit">
+        <div class="number" id="minutes">--</div>
+        <div class="label">Minutes</div>
+      </div>
+      <div class="unit">
+        <div class="number" id="seconds">--</div>
+        <div class="label">Seconds</div>
+      </div>
+    </div>
+
+    <div class="progress-wrapper">
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+      </div>
+      <p class="progress-text" id="progressText"></p>
+    </div>
+  </div>
+
+  <script>
+    // ICCAD deadline: 2026-04-15 20:59:00 KST (UTC+9)
+    const DEADLINE = new Date('2026-04-15T20:59:00+09:00').getTime();
+    // Rough start reference: 30 days before deadline for progress bar
+    const TOTAL_SPAN = 30 * 24 * 60 * 60 * 1000;
+    const START = DEADLINE - TOTAL_SPAN;
+
+    function pad(n) {
+      return String(n).padStart(2, '0');
+    }
+
+    function update() {
+      const now = Date.now();
+      const diff = DEADLINE - now;
+
+      if (diff <= 0) {
+        document.getElementById('countdown').innerHTML =
+          '<p class="expired">Submission Closed!</p>';
+        document.getElementById('progressFill').style.width = '100%';
+        document.getElementById('progressText').textContent = 'Deadline has passed.';
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      document.getElementById('days').textContent = pad(days);
+      document.getElementById('hours').textContent = pad(hours);
+      document.getElementById('minutes').textContent = pad(minutes);
+      document.getElementById('seconds').textContent = pad(seconds);
+
+      // Progress bar
+      const elapsed = now - START;
+      const pct = Math.min(Math.max((elapsed / TOTAL_SPAN) * 100, 0), 100);
+      document.getElementById('progressFill').style.width = pct.toFixed(2) + '%';
+      document.getElementById('progressText').textContent =
+        `D-${days} | ${pct.toFixed(1)}% of preparation window elapsed`;
+
+      requestAnimationFrame(update);
+    }
+
+    // Particles
+    (function createParticles() {
+      const container = document.getElementById('particles');
+      for (let i = 0; i < 40; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        p.style.left = Math.random() * 100 + '%';
+        p.style.animationDuration = (6 + Math.random() * 10) + 's';
+        p.style.animationDelay = Math.random() * 10 + 's';
+        p.style.width = p.style.height = (2 + Math.random() * 3) + 'px';
+        container.appendChild(p);
+      }
+    })();
+
+    update();
+  </script>
+</body>
+</html>
