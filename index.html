@@ -21,8 +21,8 @@
 
     .container {
       text-align: center;
-      padding: 2rem;
-      max-width: 800px;
+      padding: 1.5rem;
+      max-width: 600px;
       width: 100%;
     }
 
@@ -31,18 +31,18 @@
       background: rgba(255, 255, 255, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 20px;
-      padding: 6px 18px;
-      font-size: 0.85rem;
+      padding: 5px 14px;
+      font-size: 0.75rem;
       letter-spacing: 1px;
       text-transform: uppercase;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
       backdrop-filter: blur(10px);
     }
 
     h1 {
-      font-size: 3rem;
+      font-size: 2.2rem;
       font-weight: 700;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.3rem;
       background: linear-gradient(to right, #f7797d, #FBD786, #C6FFDD);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -50,42 +50,47 @@
     }
 
     .subtitle {
-      font-size: 1.1rem;
+      font-size: 0.95rem;
       color: rgba(255, 255, 255, 0.6);
-      margin-bottom: 3rem;
+      margin-bottom: 1.5rem;
     }
 
     .deadline-info {
-      font-size: 0.95rem;
+      font-size: 0.85rem;
       color: rgba(255, 255, 255, 0.5);
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .now-info {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.4);
+      margin-bottom: 0.3rem;
     }
 
     .countdown {
       display: flex;
       justify-content: center;
-      gap: 1.2rem;
-      flex-wrap: wrap;
-      margin-bottom: 2.5rem;
+      gap: 0.8rem;
+      margin-bottom: 1.5rem;
     }
 
     .unit {
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 16px;
-      padding: 1.5rem 1.2rem;
-      min-width: 110px;
+      border-radius: 12px;
+      padding: 1rem 0;
+      width: 72px;
       backdrop-filter: blur(20px);
       transition: transform 0.3s, box-shadow 0.3s;
     }
 
     .unit:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 30px rgba(247, 121, 125, 0.2);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(247, 121, 125, 0.2);
     }
 
     .unit .number {
-      font-size: 3rem;
+      font-size: 2rem;
       font-weight: 700;
       line-height: 1;
       font-variant-numeric: tabular-nums;
@@ -96,16 +101,15 @@
     }
 
     .unit .label {
-      font-size: 0.75rem;
+      font-size: 0.6rem;
       text-transform: uppercase;
-      letter-spacing: 2px;
+      letter-spacing: 1.5px;
       color: rgba(255, 255, 255, 0.5);
-      margin-top: 0.5rem;
+      margin-top: 0.4rem;
     }
 
-
     .expired {
-      font-size: 2rem;
+      font-size: 1.8rem;
       color: #f7797d;
       animation: pulse 1.5s infinite;
     }
@@ -138,11 +142,11 @@
       100% { transform: translateY(-10vh) scale(1); opacity: 0; }
     }
 
-    @media (max-width: 600px) {
-      h1 { font-size: 2rem; }
-      .unit { min-width: 80px; padding: 1rem 0.8rem; }
-      .unit .number { font-size: 2rem; }
-      .countdown { gap: 0.7rem; }
+    @media (max-width: 400px) {
+      h1 { font-size: 1.8rem; }
+      .unit { width: 64px; padding: 0.8rem 0; }
+      .unit .number { font-size: 1.6rem; }
+      .countdown { gap: 0.5rem; }
     }
   </style>
 </head>
@@ -153,7 +157,8 @@
     <div class="badge">Conference Deadline</div>
     <h1>ICCAD 2026</h1>
     <p class="subtitle">Paper Submission Deadline</p>
-    <p class="deadline-info">2026. 4. 15. (Wed) 20:59 KST</p>
+    <p class="now-info" id="nowInfo"></p>
+    <p class="deadline-info">Deadline: 2026. 4. 15. (Wed) 20:59 KST</p>
 
     <div class="countdown" id="countdown">
       <div class="unit">
@@ -166,22 +171,34 @@
       </div>
       <div class="unit">
         <div class="number" id="minutes">--</div>
-        <div class="label">Minutes</div>
+        <div class="label">Min</div>
       </div>
       <div class="unit">
         <div class="number" id="seconds">--</div>
-        <div class="label">Seconds</div>
+        <div class="label">Sec</div>
       </div>
     </div>
-
   </div>
 
   <script>
-    // ICCAD deadline: 2026-04-15 20:59:00 KST (UTC+9)
     const DEADLINE = new Date('2026-04-15T20:59:00+09:00').getTime();
 
     function pad(n) {
       return String(n).padStart(2, '0');
+    }
+
+    const DAYS_KR = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+    function updateNow() {
+      const now = new Date();
+      const y = now.getFullYear();
+      const m = now.getMonth() + 1;
+      const d = now.getDate();
+      const day = DAYS_KR[now.getDay()];
+      const hh = pad(now.getHours());
+      const mm = pad(now.getMinutes());
+      document.getElementById('nowInfo').textContent =
+        `Now: ${y}. ${m}. ${d}. (${day}) ${hh}:${mm} KST`;
     }
 
     function update() {
@@ -221,6 +238,8 @@
       }
     })();
 
+    updateNow();
+    setInterval(updateNow, 60000);
     update();
   </script>
 </body>
